@@ -51,6 +51,10 @@ Meteor.methods
 				username: newname 
 				by: username
 
+	'removeUser':(username, thename)->
+		if approved username
+			WList.remove 
+				username: thename 
 		
 	'addPost':(options)->
 		username = Meteor.user().username
@@ -80,8 +84,8 @@ Meteor.methods
 	
 	'removeAllPosts':()->
 		Posts.remove {}
-	
+###
 	'addNames':()->
 		Meteor.users.update 'tgHnK8gQ46GXRAGtv', $set: {'profile.fullname': 'Mike Tyson' }
 		Meteor.users.update 'Xr9viZQzp6KbvX6b7', $set: {'profile.fullname': 'Evander Holyfield' }
-	
+###

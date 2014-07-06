@@ -12,7 +12,9 @@ Template.searchform.events
 ###
 
 Template.wlist.visible = ->
-	Meteor.user()?.username in ['J.K'] #this is not safe
+	Meteor.user()?.username in ['J.K' 'athena'] #this is not safe
+Template.wlist.jk = ->
+	Meteor.user()?.username is 'J.K' #not safe
 
 Template.wlist.events
 	'click #addUser':(e,t) ->
@@ -20,6 +22,13 @@ Template.wlist.events
 			return
 		else	
 			Meteor.call "addUser", Meteor.user().username, username
+			$('#username').val('').select().focus()
+			#console.log this, username
+	'click #removeUser':(e,t) ->
+		unless (username = t.find('#username').value?.trim())?
+			return
+		else	
+			Meteor.call "removeUser", Meteor.user().username, username
 			$('#username').val('').select().focus()
 			#console.log this, username
 
