@@ -12,7 +12,7 @@ Template.searchform.events
 ###
 
 Template.wlist.visible = ->
-	Meteor.user()?.username in ['J.K' 'athena'] #this is not safe
+	Meteor.user()?.username in ['J.K', 'athena'] #this is not safe
 Template.wlist.jk = ->
 	Meteor.user()?.username is 'J.K' #not safe
 
