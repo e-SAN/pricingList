@@ -7,21 +7,45 @@ Template.searchform.events
 			return
 		else
 			Meteor.go "searchResults"
-###
+
 
 ###
+
+Template.wlist.visible = ->
+	Meteor.user()?.username in ['J.K'] #this is not safe
+
+Template.wlist.events
+	'click #addUser':(e,t) ->
+		unless (username = t.find('#username').value?.trim())?
+			return
+		else	
+			Meteor.call "addUser", Meteor.user().username, username
+			$('#username').val('').select().focus()
+			#console.log this, username
+
 Template.posts.rendered = ->
 	Deps.autorun ->
-		Meteor.subscribe "posts", Meteor.userId()
+		Meteor.subscribe "posts", Meteor.user()?.username
 		Meteor.subscribe "likes"
 		Meteor.subscribe "appusers", Meteor.userId()
-###
 
 Template.posts.posts = ->
 	Posts.find parent:null, 
 		sort: lastCommentDate:-1	
 
 
+Template.fullPost.rendered = ->
+	Deps.autorun ->
+		Meteor.subscribe "posts", Meteor.user()?.username
+		Meteor.subscribe "post", Meteor.user()?.username, @_id
+		Meteor.subscribe "comments", Meteor.user()?.username, @_id
+
+Template.commentsList.rendered = ->
+	Deps.autorun ->
+		Meteor.subscribe "posts", Meteor.user()?.username
+		#Meteor.subscribe "post", Meteor.user()?.username, @_id
+		Meteor.subscribe "comments", Meteor.user()?.username, @_id
+		
 
 Template.commentsList.comments = ->
 	Posts.find parent: @_id,

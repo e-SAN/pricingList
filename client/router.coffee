@@ -2,8 +2,8 @@ Router.configure
   layoutTemplate: 'layout'
   notFoundTemplate: 'notFound'
   loadingTemplate: 'loading'
-  waitOn: -> 
-    Meteor.subscribe 'posts', Meteor.userId()
+  #waitOn: -> 
+  #  Meteor.subscribe 'posts', Meteor.userId()
     #Meteor.subscribe 'comments', @_id
 
 Router.map -> # => will not work
@@ -13,7 +13,7 @@ Router.map -> # => will not work
   @route 'new'
   @route 'posts'
   @route 'fullPost', 
-    path:'/posts/:_id'
+    path:'/post/:_id'
     data: -> Posts.findOne @params._id #, parent: @params._id
   ###
   @route 'searchResults',

@@ -1,14 +1,20 @@
-Meteor.publish "post", (id)->
-	Posts.findOne id
+approved = (name) ->
+	name is 'J.K' or WList.findOne(username:name)?
 
-Meteor.publish "posts", (userid)->
-	Posts.find {}#parent:null,
-		#fields:
-		#	content:false
-			#owner:false
 
-Meteor.publish "comments", (id)->
-	if userid? and id?
+Meteor.publish "post", (username, id)->
+	if username?
+		Posts.findOne id if id?
+
+Meteor.publish "posts", (username)->
+	if username? and approved username #and username? in ['j.k'] #<--this works! so we will add white-list
+		Posts.find {} #parent:null #,
+			#fields:
+			#	content:false
+				#owner:false
+
+Meteor.publish "comments", (username, id)->
+	if id? #and username?
 		Posts.find parent:id #,
 			###
 				fields:
@@ -39,14 +45,23 @@ Meteor.methods
 		else
 			userid 
 		
+	'addUser':(username, newname)->
+		if approved username
+			WList.insert 
+				username: newname 
+				by: username
 
+		
 	'addPost':(options)->
+		username = Meteor.user().username
+		unless approved username
+			return
 		date = new Date()
 		id = options.parent
 		post = {
 			title: options.title
 			content: options.content
-			owner: Meteor.user().username #"#{Meteor.user().username}(#{Meteor.user().emails[0].address})" #if (em = Meteor.user().emails?[0]?.address)? then em else Meteor.userId()
+			owner: username #"#{Meteor.user().username}(#{Meteor.user().emails[0].address})" #if (em = Meteor.user().emails?[0]?.address)? then em else Meteor.userId()
 			date: date
 			parent: id
 		}
