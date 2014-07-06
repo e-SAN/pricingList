@@ -42,8 +42,8 @@ Template.fullPost.rendered = ->
 
 Template.commentsList.rendered = ->
 	Deps.autorun ->
-		Meteor.subscribe "posts", Meteor.user()?.username
-		#Meteor.subscribe "post", Meteor.user()?.username, @_id
+		#Meteor.subscribe "posts", Meteor.user()?.username
+		Meteor.subscribe "post", Meteor.user()?.username, @_id
 		Meteor.subscribe "comments", Meteor.user()?.username, @_id
 		
 
