@@ -1,13 +1,11 @@
 Meteor.publish "post", (id)->
-	if userid?
-		Posts.findOne id
+	Posts.findOne id
 
 Meteor.publish "posts", (userid)->
-	if userid?
-		Posts.find {}#parent:null,
-			#fields:
-			#	content:false
-				#owner:false
+	Posts.find {}#parent:null,
+		#fields:
+		#	content:false
+			#owner:false
 
 Meteor.publish "comments", (id)->
 	if userid? and id?

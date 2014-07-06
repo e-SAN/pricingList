@@ -7,8 +7,10 @@ Router.configure
     #Meteor.subscribe 'comments', @_id
 
 Router.map -> # => will not work
-  @route 'splash', path: '/'
-  @route 'new'#, onAfterAction: -> this.render 'posts'
+  @route 'splash', 
+    path: '/'
+    onAfterAction: -> this.render 'posts'
+  @route 'new'
   @route 'posts'
   @route 'fullPost', 
     path:'/posts/:_id'
