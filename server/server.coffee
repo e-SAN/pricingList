@@ -52,7 +52,7 @@ Meteor.methods
 				by: username
 
 	'removeUser':(username, thename)->
-		if approved username
+		if username is 'J.K'
 			WList.remove 
 				username: thename 
 		
