@@ -30,21 +30,6 @@ Meteor.publish "appusers", (userid) ->
 
 Meteor.methods
 	# {content:'',owner:'',date:'',parent:''}
-	'postOwner':(id) ->
-		# this doesn't work
-		posts = (Posts.find _id: id).fetch()
-		userid = posts[0].owner
-		usr = (Meteor.users.find _id: userid).fetch()[0]
-		console.log usr.emails?[0].address
-		usr.emails[0].address
-		if usr? 
-			if usr.profile? 
-				usr.profile.name 
-			else 
-				usr.emails?[0].address
-		else
-			userid 
-		
 	'addUser':(username, newname)->
 		if approved username
 			WList.insert 
