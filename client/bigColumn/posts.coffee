@@ -10,6 +10,8 @@ Template.searchform.events
 
 
 ###
+Template.bigColumn.loggedIn = ->
+	Meteor.userId()?
 
 Template.wlist.visible = ->
 	Meteor.user()?.username in ['J.K', 'athena'] #this is not safe
