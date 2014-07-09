@@ -37,26 +37,28 @@ Template.wlist.events
 Template.posts.rendered = ->
 	Deps.autorun ->
 		Meteor.subscribe "posts", Meteor.user()?.username
-		Meteor.subscribe "likes"
-		Meteor.subscribe "appusers", Meteor.userId()
+		#Meteor.subscribe "likes"
+		#Meteor.subscribe "appusers", Meteor.userId()
 
 Template.posts.posts = ->
 	Posts.find parent:null, 
 		sort: lastCommentDate:-1	
 
-
+###
+###
 Template.fullPost.rendered = ->
 	Deps.autorun ->
 		Meteor.subscribe "posts", Meteor.user()?.username
-		Meteor.subscribe "post", Meteor.user()?.username, @_id
-		Meteor.subscribe "comments", Meteor.user()?.username, @_id
+		#Meteor.subscribe "post", Meteor.user()?.username, @_id
+		#Meteor.subscribe "comments", Meteor.user()?.username, @_id
 
 Template.commentsList.rendered = ->
 	Deps.autorun ->
 		#Meteor.subscribe "posts", Meteor.user()?.username
-		Meteor.subscribe "post", Meteor.user()?.username, @_id
+		#Meteor.subscribe "post", Meteor.user()?.username, @_id
 		Meteor.subscribe "comments", Meteor.user()?.username, @_id
-		
+	
+	
 
 Template.commentsList.comments = ->
 	Posts.find parent: @_id,

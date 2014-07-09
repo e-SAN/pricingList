@@ -1,6 +1,6 @@
 approved = (name) ->
 	name is 'J.K' or WList.findOne(username:name)?
-
+share.approved = approved
 
 Meteor.publish "post", (username, id)->
 	if username?
@@ -58,8 +58,8 @@ Meteor.methods
 		
 	'addPost':(options)->
 		username = Meteor.user().username
-		unless approved username
-			return
+		#unless approved username
+		#	return
 		date = new Date()
 		id = options.parent
 		post = {

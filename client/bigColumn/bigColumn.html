@@ -1,12 +1,9 @@
 <template name="bigColumn">
 		<div class="col-md-12 column">
-				{{#if loggedIn}}
-					{{>yield}}
-						
-				{{else}}
+				{{#unless currentUser}}
 					{{>splash}}
-				{{/if}}
-					
+				{{/unless}}
+				{{> yield}}	
 					
 		</div>
 </template>
