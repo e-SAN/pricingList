@@ -1,5 +1,3 @@
-Template.layout.loggedIn = ->
-	Meteor.userId()?
 ###
 Template.searchform.events 
 	'click #search': (e,t) ->
@@ -10,9 +8,6 @@ Template.searchform.events
 
 
 ###
-Template.bigColumn.loggedIn = ->
-	Meteor.userId()?
-
 Template.wlist.visible = ->
 	Meteor.user()?.username in ['J.K', 'athena'] #this is not safe
 Template.wlist.jk = ->
@@ -64,8 +59,6 @@ Template.commentsList.comments = ->
 	Posts.find parent: @_id,
 		sort: date: 1
 
-Template.new.loggedIn = ->
-	Meteor.userId()?
 
 Template.new.events
 	'click #submitNew': (e,t)->
