@@ -111,10 +111,11 @@ Template.newComment.events
 			title: title
 			content: content
 			#comments:[]
-		
+
 		$('#content').val('')
-		$('#title').val('').select().focus()
-				
+		$('#title').val('')#.select().focus()
+		Router.go 'posts'
+			
 			
 
 	'click #cancel': (e,t)->
