@@ -14,7 +14,7 @@ Router.map -> # => will not work
   @route 'posts'
   @route 'fullPost', 
     path:'/post/:_id'
-    data: -> Posts.findOne @params._id #, parent: @params._id
+    data: -> Posts.findOne _id: @params._id #$or: [_id: @params._id , parent: @params._id]
   ###
   @route 'searchResults',
     path: '/posts/:searchKey'

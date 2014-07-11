@@ -1,7 +1,10 @@
 <template name="bigColumn">
-				<div class="col-md-12 column">
-					{{>yield}}
+		<div class="col-md-12 column">
+				{{#unless currentUser}}
+					{{>splash}}
+				{{/unless}}
+				
+				{{> yield}}	
 					
-					
-				</div>
+		</div>
 </template>
