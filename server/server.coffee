@@ -58,8 +58,8 @@ Meteor.methods
 		
 	'addPost':(options)->
 		username = Meteor.user().username
-		#unless approved username
-		#	return
+		unless approved username
+			return
 		date = new Date()
 		id = options.parent
 		post = {

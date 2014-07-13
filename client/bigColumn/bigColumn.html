@@ -2,9 +2,8 @@
 		<div class="col-md-12 column">
 				{{#unless currentUser}}
 					{{>splash}}
-				{{/unless}}
-				
-				{{> yield}}	
-					
+				{{else}}
+					{{> yield}}	
+				{{/unless}}	
 		</div>
 </template>
