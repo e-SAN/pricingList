@@ -2,19 +2,5 @@
 	<div class="headerContent" > 
 		{{> headerContent}}
 	</div>
-	<div>	
-		{{#if commentable}}
-			<p>
-				
-				<button id="ccomment" type="submit" class="btn btn-default"> Comment </button>
-			</p>
-			<p>
-				<a class="btn" href="/posts/{{this._id}}">View details »</a>
-				{{> newComment}}
-
-			</p>
-			{{> commentsList}}
-		{{/if}}
-	</div>
 	
 </template>

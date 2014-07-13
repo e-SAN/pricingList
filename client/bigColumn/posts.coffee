@@ -67,7 +67,7 @@ Template.new.events
 		unless title = ($ '#title').val()?.trim()
 			alert "title can't be empty"
 		else
-			content = ($ '#content').val()?.trim()
+			content = ($ '#content').val()#?.trim()
 			#console.log this, 'clicked'
 
 			Meteor.call "addPost",
@@ -87,9 +87,9 @@ Template.new.events
 Template.newComment.events
 	'click #submit': (e,t) ->
 		title = ($ '#title').val()?.trim()
-		content = ($ '#content').val()?.trim()
+		content = ($ '#content').val()#?.trim()
 		unless title 
-			unless content
+			unless content?
 				return
 			#console.log this, 'clicked'
 		
