@@ -96,12 +96,12 @@ Template.newComment.events
 			title: title
 			content: content
 			#comments:[]
-		
+
 		$('#content').val('')
 		$('#title').val('')#.select().focus()
 		e.preventDefault()				
-			
 
+			
 	'click #cancel': (e,t)->
 		$('#content').val ''
 		$('#title').val('').select().focus()
