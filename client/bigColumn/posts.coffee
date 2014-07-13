@@ -20,6 +20,7 @@ Template.wlist.events
 		else	
 			Meteor.call "addUser", Meteor.user().username, username
 			$('#username').val('').select().focus()
+			e.preventDefault()
 			#console.log this, username
 	'click #removeUser':(e,t) ->
 		unless (username = t.find('#username').value?.trim())?
@@ -27,6 +28,7 @@ Template.wlist.events
 		else	
 			Meteor.call "removeUser", Meteor.user().username, username
 			$('#username').val('').select().focus()
+			e.preventDefault()
 			#console.log this, username
 
 Template.posts.rendered = ->
@@ -96,11 +98,11 @@ Template.newComment.events
 			#comments:[]
 		
 		$('#content').val('')
-		$('#title').val('').select().focus()
-				
+		$('#title').val('')#.select().focus()
+		e.preventDefault()				
 			
 
 	'click #cancel': (e,t)->
 		$('#content').val ''
 		$('#title').val('').select().focus()
-		
+		e.preventDefault()
