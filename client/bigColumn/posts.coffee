@@ -64,10 +64,10 @@ Template.commentsList.comments = ->
 
 Template.new.events
 	'click #submitNew': (e,t)->
-		unless title = t.find('#title').value?.trim()
+		unless title = ($ '#title').val()?.trim()
 			alert "title can't be empty"
 		else
-			content = t.find('#content').value?.trim()
+			content = ($ '#content').val()?.trim()
 			#console.log this, 'clicked'
 
 			Meteor.call "addPost",
@@ -76,16 +76,18 @@ Template.new.events
 				content: content
 				#comments:[]
 			Router.go 'posts'
+			e.preventDefault() # prevent from re-rendering whole page
 	
 	'click #cancel': (e,t)->
 		$('#title').val('')
 		$('#content').val('')
 		Router.go 'posts'
-
+		e.preventDefault() # prevent from re-rendering whole page
+		
 Template.newComment.events
 	'click #submit': (e,t) ->
-		title = t.find('#title').value?.trim()
-		content = t.find('#content').value?.trim()
+		title = ($ '#title').val()?.trim()
+		content = ($ '#content').val()?.trim()
 		unless title 
 			unless content
 				return
@@ -98,11 +100,10 @@ Template.newComment.events
 			#comments:[]
 
 		$('#content').val('')
-		$('#title').val('')#.select().focus()
-		e.preventDefault()				
-
+		$('#title').val('').select().focus()
+		e.preventDefault() # prevent from re-rendering whole page
 			
 	'click #cancel': (e,t)->
 		$('#content').val ''
 		$('#title').val('').select().focus()
-		e.preventDefault()
+		e.preventDefault() # prevent from re-rendering whole page
