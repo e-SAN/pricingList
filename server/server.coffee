@@ -63,8 +63,9 @@ Meteor.methods
 		date = new Date()
 		id = options.parent
 		post = {
+			checked: options.checked
 			title: options.title
-			content: options.content
+			price: options.price
 			owner: username #"#{Meteor.user().username}(#{Meteor.user().emails[0].address})" #if (em = Meteor.user().emails?[0]?.address)? then em else Meteor.userId()
 			date: date
 			parent: id

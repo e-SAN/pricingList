@@ -43,6 +43,9 @@ Template.posts.posts = ->
 
 ###
 ###
+Template.fullPost.price = ->
+	Posts.find $and: parent: @_id, checked:true
+
 Template.fullPost.rendered = ->
 	Deps.autorun ->
 		Meteor.subscribe "posts", Meteor.user()?.username
@@ -67,43 +70,45 @@ Template.new.events
 		unless title = ($ '#title').val()?.trim()
 			alert "title can't be empty"
 		else
-			content = ($ '#content').val()#?.trim()
+			checked = ($ '#checked').val()
+			price = ($ '#price').val()#?.trim()
 			#console.log this, 'clicked'
 
 			Meteor.call "addPost",
-				parent: null 
+				parent: null
+				checked: checked 
 				title: title
-				content: content
+				price: null
 				#comments:[]
 			Router.go 'posts'
 			e.preventDefault() # prevent from re-rendering whole page
 	
 	'click #cancel': (e,t)->
 		$('#title').val('')
-		$('#content').val('')
+		$('#price').val('')
 		Router.go 'posts'
 		e.preventDefault() # prevent from re-rendering whole page
 		
 Template.newComment.events
 	'click #submit': (e,t) ->
 		title = ($ '#title').val()?.trim()
-		content = ($ '#content').val()#?.trim()
-		unless title 
-			unless content?
-				return
+		price = ($ '#price').val()#?.trim()
+		unless title? and price?
+			return
 			#console.log this, 'clicked'
 		
 		Meteor.call "addPost",
 			parent: @_id 
+			checked: checked
 			title: title
-			content: content
+			price: price
 			#comments:[]
 
-		$('#content').val('')
+		$('#price').val('')
 		$('#title').val('').select().focus()
 		e.preventDefault() # prevent from re-rendering whole page
 			
 	'click #cancel': (e,t)->
-		$('#content').val ''
+		$('#price').val ''
 		$('#title').val('').select().focus()
 		e.preventDefault() # prevent from re-rendering whole page
