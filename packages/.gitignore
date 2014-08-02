@@ -1,5 +1,7 @@
 /bootstrap-3
 /iron-router
-/blaze-layout
-/accounts-ui-bootstrap-3
 /accounts-ui-bootstrap-3-blaze
+/iron-layout
+/blaze-layout
+/iron-core
+/iron-dynamic-template
