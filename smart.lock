@@ -3,7 +3,8 @@
   "dependencies": {
     "basePackages": {
       "bootstrap-3": {},
-      "iron-router": {}
+      "iron-router": {},
+      "accounts-ui-bootstrap-3-blaze": {}
     },
     "packages": {
       "bootstrap-3": {
@@ -15,6 +16,11 @@
         "git": "https://github.com/EventedMind/iron-router.git",
         "tag": "v0.8.2",
         "commit": "05415a8891ea87a00fb1e2388585f2ca5a38e0da"
+      },
+      "accounts-ui-bootstrap-3-blaze": {
+        "git": "https://github.com/rajit/meteor-accounts-ui-bootstrap-3.git",
+        "tag": "v0.3.10",
+        "commit": "2cf78b49529e62060da086ca0e861fabcbc84928"
       },
       "iron-layout": {
         "git": "https://github.com/EventedMind/iron-layout.git",
