@@ -3,8 +3,12 @@
 		<li>
 			<a href="https://github.com/e-SAN/esaner">GitHub</a>
 		</li>
-		{{>dropdown1}}
-		<li>{{>loginButtons}}</li>
+		<!--{{>dropdown1}}-->
+		<li>
+		{{#if currentUser}}
+			{{>loginButtons}}
+		{{/if}}
+		</li>
 		
 	</ul>
 

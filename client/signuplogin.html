@@ -1,0 +1,43 @@
+<template name= 'signup'>
+	<form>
+	<h1> Sign Up </h1>
+	<P>Send me a message for approving after signing up.</P>
+	<input type="text" id="su-email" placeholder='Email'>
+	<input type="text" id="su-username" placeholder='Username'>
+	<input type="password" id="su-password" placeholder='Password'>
+	<button> Sign Up </button>
+	</form>
+</template>
+<template name= 'login'>
+	<form>
+	<h1> Sign In </h1>
+	<input type="text" id="li-username" placeholder='Username'>
+	<input type="password" id="li-password" placeholder='Password'>
+	<button> Sign In </button> Or, <a href="#"><strong>Sign Up</strong></a>
+	</form>
+</template>
+<template name= 'logout'>
+	<form>
+	<h1> Log Out </h1>
+	{{ currentUser.username}}
+	<button> Log Out </button>
+	</form>
+</template>
+
+<template name = 'signupLogin'>
+<div id="login">
+	{{#if loggingIn}}
+		<h1> Logging In ... </h1>
+	{{else}}
+		{{#if currentUser}}
+			{{> logout}}
+		{{else}}
+			{{#if visable}}
+				{{> signup}}
+			{{else}}
+				{{> login}}
+			{{/if}}
+		{{/if}}
+	{{/if}}
+</div>
+</template>
