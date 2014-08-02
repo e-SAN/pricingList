@@ -44,13 +44,23 @@ Template.posts.posts = ->
 ###
 ###
 Template.fullPost.price = ->
-	Posts.find $and: parent: @_id, checked:true
+	suma = (arr) =>
+		console.log @_id, arr
+
+		s = 0
+		for n in arr when n.checked 
+			s += parseInt n.price, 10
+		s
+
+	@price ? suma (Posts.find parent: @_id).fetch()
+
+	#Posts.find $and: parent: @_id, checked:true
 
 Template.fullPost.rendered = ->
 	Deps.autorun ->
 		Meteor.subscribe "posts", Meteor.user()?.username
-		#Meteor.subscribe "post", Meteor.user()?.username, @_id
-		#Meteor.subscribe "comments", Meteor.user()?.username, @_id
+		Meteor.subscribe "post", Meteor.user()?.username, @_id
+		Meteor.subscribe "comments", Meteor.user()?.username, @_id
 
 Template.commentsList.rendered = ->
 	Deps.autorun ->
@@ -70,13 +80,13 @@ Template.new.events
 		unless title = ($ '#title').val()?.trim()
 			alert "title can't be empty"
 		else
-			checked = ($ '#checked').val()
+			isChecked = ($ '#checked').val()
 			price = ($ '#price').val()#?.trim()
 			#console.log this, 'clicked'
 
 			Meteor.call "addPost",
 				parent: null
-				checked: checked 
+				checked: isChecked 
 				title: title
 				price: null
 				#comments:[]
@@ -93,14 +103,14 @@ Template.newComment.events
 	'click #submit': (e,t) ->
 		title = ($ '#title').val()?.trim()
 		price = ($ '#price').val()#?.trim()
-		checked = ($ '#checked').val()
+		isChecked = ($ '#checked').val()
 		unless title? and price?
 			return
 			#console.log this, 'clicked'
 		
 		Meteor.call "addPost",
 			parent: @_id 
-			checked: checked
+			checked: isChecked
 			title: title
 			price: price
 			#comments:[]
