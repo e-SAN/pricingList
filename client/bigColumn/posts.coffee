@@ -93,6 +93,7 @@ Template.newComment.events
 	'click #submit': (e,t) ->
 		title = ($ '#title').val()?.trim()
 		price = ($ '#price').val()#?.trim()
+		checked = ($ '#checked').val()
 		unless title? and price?
 			return
 			#console.log this, 'clicked'
