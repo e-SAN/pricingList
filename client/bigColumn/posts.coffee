@@ -41,6 +41,9 @@ Template.posts.posts = ->
 	Posts.find parent:null, 
 		sort: lastCommentDate:-1	
 
+Template.updatePosts.posts = ->
+	Posts.find parent:null, 
+		sort: lastCommentDate:-1	
 ###
 ###
 Template.fullPost.price = ->
@@ -74,6 +77,8 @@ Template.commentsList.comments = ->
 	Posts.find parent: @_id,
 		sort: date: 1
 
+Template.new.helpers
+	parent: null
 
 Template.new.events
 	'click #submitNew': (e,t)->
@@ -98,7 +103,10 @@ Template.new.events
 		$('#price').val('')
 		Router.go 'posts'
 		e.preventDefault() # prevent from re-rendering whole page
-		
+
+Template.newComment.helpers
+	parent: @_id
+
 Template.newComment.events
 	'click #submit': (e,t) ->
 		title = ($ '#title').val()?.trim()
