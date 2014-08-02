@@ -12,6 +12,7 @@ Router.map -> # => will not work
     onAfterAction: -> this.render 'posts'
   @route 'new'
   @route 'posts'
+  ###
   @route 'fullPost', 
     path:'/post/:_id'
     data: -> 
@@ -19,8 +20,9 @@ Router.map -> # => will not work
       post.comments = Posts.find 
         parent: @params._id 
         sort: date: 1
+      post.price =  for post in post.comments
+        post.price ? 0 += post.price
       post
-  ###
   @route 'fullPost', 
     path:'/post/:_id'
     data: -> Posts.findOne _id: @params._id #$or: [_id: @params._id , parent: @params._id]
