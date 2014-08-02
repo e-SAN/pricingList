@@ -9,3 +9,4 @@ bootstrap-3
 accounts-password
 accounts-base
 jquery
+iron-router
