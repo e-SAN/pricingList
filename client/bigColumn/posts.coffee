@@ -1,13 +1,10 @@
-###
 Template.searchform.events 
 	'click #search': (e,t) ->
-		unless key = $('#searchKey').val()?
-			return
-		else
-			Meteor.go "searchResults"
+		e.preventDefault()
+		Session.set 'project', $('#searchKey').val()?.trim()
 
+project = ->  Session.get 'project' #$('#searchKey').val()?.trim()
 
-###
 Template.wlist.visible = ->
 	Meteor.user()?.username in ['J.K', 'yuki'] #this is not safe
 Template.wlist.jk = ->
@@ -39,17 +36,25 @@ Template.posts.rendered = ->
 		Meteor.subscribe "comments", Meteor.user()?.username, @_id
 
 Template.posts.posts = ->
-	Posts.find parent:null, 
+	return [] until project()
+	Posts.find {parent:null, project: project()}, 
 		sort: date: 1 #lastCommentDate:-1	
 
 
-Template.total.totalPrice = ->
-	suma (Posts.find parent:null).fetch()
-Template.total.visible = ->
-	Session.get 'newItem'
+Template.total.helpers
+	project: ->
+		project()
+
+	totalPrice: ->
+		return 'Set Project First' until project()
+		suma (Posts.find {parent:null, project: project()}).fetch()
+
+	visible: ->
+		Session.get 'newItem'
+
 Template.total.events
 	'click #add': (e,t)->
-		Session.set 'newItem', true
+		Session.set 'newItem', not Session.get 'newItem'
 
 Template.post.visible = ->
 	Session.get "newComment#{@_id}" 
@@ -59,7 +64,7 @@ Template.post.price = ->
 
 Template.post.events
 	'click #add': (e,t) ->
-		Session.set "newComment#{@_id}", true
+		Session.set "newComment#{@_id}", not Session.get "newComment#{@_id}"
 	
 	'click #checked': (e,t)->
 		isChecked = not @checked
@@ -85,6 +90,8 @@ Template.new.helpers
 	parent: null
 
 Template.new.events
+	'click': (e,t)->
+		e.preventDefault() # prevent from re-rendering whole page
 	'click #submitNew': (e,t)->
 		unless title = ($ '#title').val()?.trim()
 			alert "title can't be empty"
@@ -98,18 +105,19 @@ Template.new.events
 				checked: true 
 				title: title
 				price: null
-				project: ($ '#project').val()?.trim()
+				project: project() #? alert 'set project first'
 				#comments:[]
+			$('#title').val('')
 			#Router.go 'posts'
-			e.preventDefault() # prevent from re-rendering whole page
-			Session.set 'newItem',false
+			#e.preventDefault() # prevent from re-rendering whole page
+			#Session.set 'newItem',false
 
 	'click #cancel': (e,t)->
 		$('#title').val('')
-		$('#price').val('')
+		#$('#price').val('')
 		#Router.go 'posts'
-		e.preventDefault() # prevent from re-rendering whole page
-		Session.set 'newItem', false
+		#e.preventDefault() # prevent from re-rendering whole page
+		#Session.set 'newItem', false
 
 
 Template.newComment.helpers
@@ -123,9 +131,7 @@ Template.newComment.events
 		title = ($ '#title').val()?.trim()
 		price = ($ '#price').val()#?.trim()
 		#isChecked = ($ '#checked').val()
-		unless title? and price?
-			return
-			#console.log this, 'clicked'
+		return unless title? and price?
 		
 		Meteor.call "addPost",
 			parent: @_id 
@@ -137,10 +143,10 @@ Template.newComment.events
 
 		$('#price').val('')
 		$('#title').val('').select().focus()
-		Session.set "newComment#{@_id}",false
+		#Session.set "newComment#{@_id}",false
 
 	'click #cancel': (e,t)->
 		$('#price').val ''
 		$('#title').val('').select().focus()
-		Session.set "newComment#{@_id}",false
+		#Session.set "newComment#{@_id}",false
 		
