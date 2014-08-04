@@ -4,8 +4,7 @@
 
 @suma = (arr) ->
 	s = 0
-	for n in arr when n.checked 
-		s += n.getPrice()
+	s += n.getPrice() for n in arr when n.checked 
 	s
 
 Posts.helpers

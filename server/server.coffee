@@ -69,6 +69,7 @@ Meteor.methods
 			owner: username #"#{Meteor.user().username}(#{Meteor.user().emails[0].address})" #if (em = Meteor.user().emails?[0]?.address)? then em else Meteor.userId()
 			date: date
 			parent: id
+			project: options.project # this is usefull later for adding selecting method
 		}
 		
 		if id?

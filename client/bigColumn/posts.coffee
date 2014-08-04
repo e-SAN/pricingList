@@ -45,6 +45,11 @@ Template.posts.posts = ->
 
 Template.total.totalPrice = ->
 	suma (Posts.find parent:null).fetch()
+Template.total.visible = ->
+	Session.get 'newItem'
+Template.total.events
+	'click #add': (e,t)->
+		Session.set 'newItem', true
 
 Template.post.visible = ->
 	Session.get "newComment#{@_id}" 
@@ -57,23 +62,24 @@ Template.post.events
 		Session.set "newComment#{@_id}", true
 	
 	'click #checked': (e,t)->
-		checked = not @checked
-		console.log @getPrice(), checked
-		Meteor.call "isChecked", @_id, checked
+		isChecked = not @checked
+		Meteor.call "isChecked", @_id, isChecked
 
-Template.commentsList.rendered = ->
+###Template.commentsList.rendered = ->
 	Deps.autorun ->
 		#Meteor.subscribe "posts", Meteor.user()?.username
 		#Meteor.subscribe "post", Meteor.user()?.username, @_id
 		#Meteor.subscribe "comments", Meteor.user()?.username, @_id
-	
+###	
 	
 
 Template.commentsList.comments = ->
 	Posts.find parent: @_id,
 		sort: date: 1
 
-Template.commentsList.events
+Template.comment.events
+	'dblclick': (e,t)->
+		Meteor.call 'removePost', @_id
 
 Template.new.helpers
 	parent: null
@@ -92,15 +98,19 @@ Template.new.events
 				checked: true 
 				title: title
 				price: null
+				project: ($ '#project').val()?.trim()
 				#comments:[]
-			Router.go 'posts'
+			#Router.go 'posts'
 			e.preventDefault() # prevent from re-rendering whole page
-	
+			Session.set 'newItem',false
+
 	'click #cancel': (e,t)->
 		$('#title').val('')
 		$('#price').val('')
-		Router.go 'posts'
+		#Router.go 'posts'
 		e.preventDefault() # prevent from re-rendering whole page
+		Session.set 'newItem', false
+
 
 Template.newComment.helpers
 	parent: @_id
@@ -122,6 +132,7 @@ Template.newComment.events
 			checked: true
 			title: title
 			price: 1.0 * price
+			project:null
 			#comments:[]
 
 		$('#price').val('')
