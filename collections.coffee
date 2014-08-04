@@ -11,8 +11,9 @@
 		parent: 
 			type: String
 			optional:true
+			#custom: -> #to specify when parent is required
 		checked:
-			type: String
+			type: Boolean
 
 @Posts = new Meteor.Collection('posts', Schema)
 @Likes = new Meteor.Collection('likes')
