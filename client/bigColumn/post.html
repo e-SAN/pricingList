@@ -1,0 +1,17 @@
+<template name="post">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			 <input type="checkbox" id="checked" value={{this.checked}} > <a class="panel-title" data-toggle="collapse" data-parent="#panel-articles-list" href="#{{this._id}}"> <strong>{{title}}: {{price}} </strong></a> <span id='add'>>></span>
+		</div>
+		<div id="{{this._id}}" class="panel-collapse collapse in">
+			<div class="panel-body">
+				{{> commentsList}}
+				{{#if visible}}
+					{{> newComment }}
+				{{/if}}
+	
+	 
+			</div>
+		</div>
+	</div>
+</template>

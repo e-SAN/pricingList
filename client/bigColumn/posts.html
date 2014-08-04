@@ -1,7 +1,8 @@
 <template name="posts">
 	<div class="panel-group" id="panel-articles-list">
+	{{> total}}
 	{{#each posts}}
-		{{pric}} {{> fullPost}} 
+		{{> post}} 
 	{{/each}}
 	</div>
 </template>

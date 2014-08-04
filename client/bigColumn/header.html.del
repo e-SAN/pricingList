@@ -1,0 +1,3 @@
+<template name="header">
+	<input type="checkbox" id="checked" value= {{checked}}> <strong>{{title}}: {{price}} </strong> <!--[ {{date}} by {{owner}}]-->
+</template>

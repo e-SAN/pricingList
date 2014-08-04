@@ -6,7 +6,8 @@
       "iron-router": {},
       "accounts-ui-bootstrap-3-blaze": {},
       "collection2": {},
-      "autoform": {}
+      "autoform": {},
+      "collection-helpers": {}
     },
     "packages": {
       "bootstrap-3": {
@@ -26,13 +27,18 @@
       },
       "collection2": {
         "git": "https://github.com/aldeed/meteor-collection2.git",
-        "tag": "v0.4.4",
-        "commit": "c70deb36e10f63238b884529eea1e38cf0789903"
+        "tag": "v0.4.5",
+        "commit": "336903730249197b3358dac31b1bd5ed64fecc50"
       },
       "autoform": {
         "git": "https://github.com/aldeed/meteor-autoform.git",
         "tag": "v0.16.1",
         "commit": "34a447fd3a1b3164c78f865aabbac3ddc2d033fb"
+      },
+      "collection-helpers": {
+        "git": "https://github.com/dburles/meteor-collection-helpers.git",
+        "tag": "v0.3.0",
+        "commit": "842bd9343b19c0e45ae20ac9c63c8c356889959a"
       },
       "iron-layout": {
         "git": "https://github.com/EventedMind/iron-layout.git",

@@ -80,7 +80,11 @@ Meteor.methods
 		Posts.insert post
 		#console.log post, (Posts.find date: post.date).fetch()
 
-	'removePost':(id)->
+	'isChecked': (id, bool)->
+		Posts.update id, 
+			$set: checked: bool
+
+	'removePost': (id)->
 		Posts.remove _id:id
 	
 	'removeAllPosts':()->

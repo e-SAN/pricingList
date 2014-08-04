@@ -4,6 +4,7 @@
     "iron-router": {},
     "accounts-ui-bootstrap-3-blaze": {},
     "collection2": {},
-    "autoform": {}
+    "autoform": {},
+    "collection-helpers": {}
   }
 }

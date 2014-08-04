@@ -36,46 +36,44 @@ Template.posts.rendered = ->
 		Meteor.subscribe "posts", Meteor.user()?.username
 		#Meteor.subscribe "likes"
 		#Meteor.subscribe "appusers", Meteor.userId()
+		Meteor.subscribe "comments", Meteor.user()?.username, @_id
 
 Template.posts.posts = ->
 	Posts.find parent:null, 
-		sort: lastCommentDate:-1	
+		sort: date: 1 #lastCommentDate:-1	
 
-Template.updatePosts.posts = ->
-	Posts.find parent:null, 
-		sort: lastCommentDate:-1	
-###
-###
-Template.fullPost.price = ->
-	suma = (arr) =>
-		console.log @_id, arr
 
-		s = 0
-		for n in arr when n.checked 
-			s += parseInt n.price, 10
-		s
+Template.total.totalPrice = ->
+	suma (Posts.find parent:null).fetch()
 
-	@price ? suma (Posts.find parent: @_id).fetch()
+Template.post.visible = ->
+	Session.get "newComment#{@_id}" 
 
-	#Posts.find $and: parent: @_id, checked:true
+Template.post.price = ->
+	@getPrice() #@price ? suma (Posts.find parent: @_id).fetch()
 
-Template.fullPost.rendered = ->
-	Deps.autorun ->
-		Meteor.subscribe "posts", Meteor.user()?.username
-		Meteor.subscribe "post", Meteor.user()?.username, @_id
-		Meteor.subscribe "comments", Meteor.user()?.username, @_id
+Template.post.events
+	'click #add': (e,t) ->
+		Session.set "newComment#{@_id}", true
+	
+	'click #checked': (e,t)->
+		checked = not @checked
+		console.log @getPrice(), checked
+		Meteor.call "isChecked", @_id, checked
 
 Template.commentsList.rendered = ->
 	Deps.autorun ->
 		#Meteor.subscribe "posts", Meteor.user()?.username
 		#Meteor.subscribe "post", Meteor.user()?.username, @_id
-		Meteor.subscribe "comments", Meteor.user()?.username, @_id
+		#Meteor.subscribe "comments", Meteor.user()?.username, @_id
 	
 	
 
 Template.commentsList.comments = ->
 	Posts.find parent: @_id,
 		sort: date: 1
+
+Template.commentsList.events
 
 Template.new.helpers
 	parent: null
@@ -85,13 +83,13 @@ Template.new.events
 		unless title = ($ '#title').val()?.trim()
 			alert "title can't be empty"
 		else
-			isChecked = ($ '#checked').val()
-			price = ($ '#price').val()#?.trim()
+			#isChecked = ($ '#checked').val()
+			#price = 1.0 * ($ '#price').val()#?.trim()
 			#console.log this, 'clicked'
 
 			Meteor.call "addPost",
 				parent: null
-				checked: isChecked 
+				checked: true 
 				title: title
 				price: null
 				#comments:[]
@@ -108,26 +106,30 @@ Template.newComment.helpers
 	parent: @_id
 
 Template.newComment.events
+	'click': (e,t)->
+		e.preventDefault() # prevent from re-rendering whole page
+
 	'click #submit': (e,t) ->
 		title = ($ '#title').val()?.trim()
 		price = ($ '#price').val()#?.trim()
-		isChecked = ($ '#checked').val()
+		#isChecked = ($ '#checked').val()
 		unless title? and price?
 			return
 			#console.log this, 'clicked'
 		
 		Meteor.call "addPost",
 			parent: @_id 
-			checked: isChecked
+			checked: true
 			title: title
-			price: price
+			price: 1.0 * price
 			#comments:[]
 
 		$('#price').val('')
 		$('#title').val('').select().focus()
-		e.preventDefault() # prevent from re-rendering whole page
-			
+		Session.set "newComment#{@_id}",false
+
 	'click #cancel': (e,t)->
 		$('#price').val ''
 		$('#title').val('').select().focus()
-		e.preventDefault() # prevent from re-rendering whole page
+		Session.set "newComment#{@_id}",false
+		
