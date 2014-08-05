@@ -93,7 +93,7 @@ Template.new.events
 	'click': (e,t)->
 		e.preventDefault() # prevent from re-rendering whole page
 	'click #submitNew': (e,t)->
-		unless title = ($ '#title').val()?.trim()
+		unless title = t.find('#title').value?.trim() #($ '#title').val()?.trim()
 			alert "title can't be empty"
 		else
 			#isChecked = ($ '#checked').val()
@@ -128,8 +128,8 @@ Template.newComment.events
 		e.preventDefault() # prevent from re-rendering whole page
 
 	'click #submit': (e,t) ->
-		title = ($ '#title').val()?.trim()
-		price = ($ '#price').val()#?.trim()
+		title = t.find('#title').value?.trim() #($ "##{@_id}").val()?.trim()
+		price = t.find('#price').value #($ '#price').val()#?.trim()
 		#isChecked = ($ '#checked').val()
 		return unless title? and price?
 		
@@ -140,8 +140,8 @@ Template.newComment.events
 			price: 1.0 * price
 			project:null
 			#comments:[]
-
-		$('#price').val('')
+		(t.find '#price').value = null
+		#$('#price').val('')
 		$('#title').val('').select().focus()
 		#Session.set "newComment#{@_id}",false
 
