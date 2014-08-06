@@ -56,19 +56,27 @@ Template.total.events
 	'click #add': (e,t)->
 		Session.set 'newItem', not Session.get 'newItem'
 
-Template.post.visible = ->
-	Session.get "newComment#{@_id}" 
-
-Template.post.price = ->
-	@getPrice() #@price ? suma (Posts.find parent: @_id).fetch()
-
+Template.post.helpers
+	editing: -> (Session.get 'editing') is @_id
+	
+	visible: ->
+		Session.get "newComment#{@_id}" 
+###
+	price: ->
+		@getPrice() #@price ? suma (Posts.find parent: @_id).fetch()
+###
 Template.post.events
 	'click #add': (e,t) ->
 		Session.set "newComment#{@_id}", not Session.get "newComment#{@_id}"
-	
+	'click #edit': (e,t)->
+		Session.set "editing", @_id	
+
 	'click #checked': (e,t)->
 		isChecked = not @checked
 		Meteor.call "isChecked", @_id, isChecked
+
+	'click #remove': (e,t)->
+		Meteor.call 'removePost', @_id
 
 ###Template.commentsList.rendered = ->
 	Deps.autorun ->
@@ -82,9 +90,25 @@ Template.commentsList.comments = ->
 	Posts.find parent: @_id,
 		sort: date: 1
 
+Template.comment.helpers
+	editing: -> (Session.get 'editing') is @_id
+
 Template.comment.events
 	'dblclick': (e,t)->
+		Session.set "editing", @_id	
+
+	'click #remove': (e,t)->
 		Meteor.call 'removePost', @_id
+
+	
+AutoForm.addHooks ['updatePostForm'],
+	after:
+		update: (error)->
+			if error
+				console.log "Update Error:", error
+			else
+				#console.log "Updated!"
+			Session.set "editing", null
 
 Template.new.helpers
 	parent: null
@@ -143,10 +167,11 @@ Template.newComment.events
 		(t.find '#price').value = null
 		#$('#price').val('')
 		(t.find '#title').value = '' #$('#title').val('').select().focus()
+		(t.find '#title').select()#.focus()
 		#Session.set "newComment#{@_id}",false
 
 	'click #cancel': (e,t)->
 		$('#price').val ''
-		$('#title').val('').select().focus()
+		$('#title').val('').select()#.focus()
 		#Session.set "newComment#{@_id}",false
 		

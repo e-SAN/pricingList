@@ -1,6 +1,27 @@
 <template name="comment">
-	<div class="headerContent" > 
-		<input type="checkbox" id="checked" checked= {{checked}}> <strong>{{title}}:{{price}} <!--input type="number" id="price" value={{price}}--> </strong> <!--[ {{date}} by {{owner}}]-->
+<li>
+	<div class="headerContent" >
+	{{#if editing}}
+		{{> updateAutoForm}}
+		{{! > updateQuickForm}} 		
+	{{else}} 
+		{{> itemsView}}
+	{{/if}}
 	</div>
-	
+</li>	
+
+
+</template>
+<template name='updateAutoForm'>
+	{{#autoForm collection="Posts" doc=this type="update" id="updatePostForm"}}
+		{{> afQuickField name="title" value = title }}
+		{{> afQuickField name="price" value = price }}
+		<button type="submit" class="btn btn-primary">Update</button>
+	{{/autoForm}}
+</template>	
+<template name='updateQuickForm'>
+	{{>quickForm collection='Posts' doc=this id='updatePostForm' type='update'}}
+</template>
+<template name= 'itemsView'>
+	<input type="checkbox" id="checked" checked= {{checked}}><strong>{{title}}:{{price}}</strong><p class="text-right"><span id='remove'>--</span></p> 
 </template>

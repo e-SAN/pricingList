@@ -4,6 +4,7 @@ approved = (name) ->
 
 share.approved = approved
 
+
 Meteor.publish "post", (username, id)->
 	if approved username
 		Posts.findOne id if id?

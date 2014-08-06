@@ -24,16 +24,21 @@
 		project:
 			type: String
 			optional:true
-			custom: -> 'required' if parent?  
+			#custom: -> 'required' unless parent?  
 		date:
 			type: Date
 		lastCommentDate:
 			type: Date
 			optional: true
-			custom: -> 'required' if parent? 
+			#custom: -> 'required' unless parent? 
 
 @Posts = new Meteor.Collection('posts', Schema)
 
+Posts.allow
+	insert: ->  true
+	update: ->  true
+	remove: ->  true
+	fetch: []
 
 @suma = (arr) ->
 	s = 0
