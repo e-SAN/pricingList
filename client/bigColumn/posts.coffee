@@ -93,11 +93,11 @@ Template.commentsList.comments = ->
 Template.comment.helpers
 	editing: -> (Session.get 'editing') is @_id
 
-Template.comment.events
-	'dblclick': (e,t)->
+Template.itemView.events
+	'click #add': (e,t)->
 		Session.set "editing", @_id	
 
-	'click #remove': (e,t)->
+	'dblclick #remove': (e,t)->
 		Meteor.call 'removePost', @_id
 
 	
