@@ -1,19 +1,9 @@
-@Posts = new Meteor.Collection 'posts'
+#@Posts = new Meteor.Collection 'posts'
 @Likes = new Meteor.Collection 'likes'
 @WList = new Meteor.Collection 'WList'
 
-@suma = (arr) ->
-	s = 0
-	s += n.getPrice() for n in arr when n.checked 
-	s
-
-Posts.helpers
-	getPrice: ->
-		if @parent then return @price
-		suma (Posts.find parent: @_id).fetch()
 		
 	
-###
 @Schema = 
 	schema:
 		title:
@@ -24,13 +14,33 @@ Posts.helpers
 			type: Number
 			label: 'Price'
 			optional: true
+			decimal: true
 		parent: 
 			type: String
 			optional:true
 			#custom: -> #to specify when parent is required
 		checked:
 			type: Boolean
+		project:
+			type: String
+			optional:true
+			custom: -> 'required' if parent?  
+		date:
+			type: Date
+		lastCommentDate:
+			type: Date
+			optional: true
+			custom: -> 'required' if parent? 
+
 @Posts = new Meteor.Collection('posts', Schema)
-###
 
 
+@suma = (arr) ->
+	s = 0
+	s += n.getPrice() for n in arr when n.checked 
+	s
+
+Posts.helpers
+	getPrice: ->
+		if @parent then return @price
+		suma (Posts.find parent: @_id).fetch()

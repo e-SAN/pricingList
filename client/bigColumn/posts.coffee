@@ -142,7 +142,7 @@ Template.newComment.events
 			#comments:[]
 		(t.find '#price').value = null
 		#$('#price').val('')
-		$('#title').val('').select().focus()
+		(t.find '#title').value = '' #$('#title').val('').select().focus()
 		#Session.set "newComment#{@_id}",false
 
 	'click #cancel': (e,t)->
