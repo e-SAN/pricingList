@@ -28,6 +28,13 @@ Template.wlist.events
 			e.preventDefault()
 			#console.log this, username
 
+Template.printing.notClean = -> 'off'#true
+Template.printing.rendered = ->
+	Deps.autorun ->
+		Meteor.subscribe "posts", Meteor.user()?.username
+		Meteor.subscribe "comments", Meteor.user()?.username, @_id
+
+
 Template.posts.rendered = ->
 	Deps.autorun ->
 		Meteor.subscribe "posts", Meteor.user()?.username

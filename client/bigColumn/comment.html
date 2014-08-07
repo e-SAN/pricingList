@@ -23,5 +23,5 @@
 	{{>quickForm collection='Posts' doc=this id='updatePostForm' type='update'}}
 </template>
 <template name= 'itemView'>
-	<input type="checkbox" id="checked" checked= {{checked}}><strong><span id='remove'>{{title}}: </span> <span id='edit'> {{price}} </span> </strong> 
+	{{! #if notClean}} <input type="checkbox" id="checked" checked= {{checked}}> <span id='remove'>-</span> {{! /if}} <span id='edit'><strong> {{title}}: {{price}} </strong></span>  
 </template>

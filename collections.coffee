@@ -42,10 +42,10 @@ Posts.allow
 
 @suma = (arr) ->
 	s = 0
-	s += n.getPrice() for n in arr when n.checked 
+	s += item.getPrice() for item in arr when item.checked 
 	s
 
 Posts.helpers
 	getPrice: ->
-		if @parent then return @price
+		return @price if @parent 
 		suma (Posts.find parent: @_id).fetch()

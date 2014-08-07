@@ -12,6 +12,7 @@ Router.map -> # => will not work
     onAfterAction: -> this.render 'posts'
   @route 'new'
   @route 'posts'
+  @route 'printing'
   ###
   @route 'fullPost', 
     path:'/post/:_id'
