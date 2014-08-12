@@ -5,8 +5,13 @@
 		<div class="col-md-12 column">
 			{{>navbar}}
 			<div class="row clearfix">
-				{{>bigColumn}}
-				
+				<div class="col-md-12 column">
+					{{#unless currentUser}}
+						{{>splash}}
+					{{else}}
+						{{> yield}}	
+					{{/unless}}	
+				</div>
 			</div>
 		</div>
 	</div>
