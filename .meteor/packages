@@ -11,6 +11,9 @@ accounts-base
 jquery
 iron-router
 accounts-ui-bootstrap-3-blaze
-collection2
-autoform
-collection-helpers
+dburles:collection-helpers@0.3.1
+aldeed:autoform
+aldeed:collection2
+iron:core
+iron:layout
+
