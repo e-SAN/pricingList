@@ -5,15 +5,20 @@
 
 standard-app-packages
 coffeescript
-bootstrap-3
 accounts-password
 accounts-base
 jquery
-iron-router
-accounts-ui-bootstrap-3-blaze
-dburles:collection-helpers@0.3.1
 aldeed:autoform
 aldeed:collection2
 iron:core
 iron:layout
+alethes:pages
+mquandalle:jade
+mizzao:user-status
+meteor-platform
+dburles:collection-helpers
+aslagle:reactive-table
+mrt:moment
+sacha:spin
+alanning:roles
 

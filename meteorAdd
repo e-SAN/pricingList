@@ -1,0 +1,4 @@
+meteor add mrt:accounts-ui-bootstrap-3-blaze mizzao:bootstrap-3 iron:dynamic-template iron:router aldeed:autoform 
+meteor add alethes:pages mquandalle:jade mizzao:user-status meteor-platform dburles:collection-helpers 
+meteor add aslagle:reactive-table mrt:moment sacha:spin alanning:roles
+
