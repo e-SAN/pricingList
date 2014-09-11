@@ -15,6 +15,10 @@
 			label: 'Price'
 			optional: true
 			decimal: true
+		manday:
+			type: Number
+			label:'Man-day'
+			optional:true
 		parent: 
 			type: String
 			optional:true

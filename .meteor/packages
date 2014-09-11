@@ -21,4 +21,7 @@ aslagle:reactive-table
 mrt:moment
 sacha:spin
 alanning:roles
+iron:router
+mrt:accounts-ui-bootstrap-3-blaze
+mizzao:bootstrap-3
 
