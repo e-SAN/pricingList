@@ -85,6 +85,10 @@ Meteor.methods
 
 	'removePost': (id)->
 		Posts.remove _id:id
+		# Can later be changed to:
+		#Posts.update id,
+		#	$set: removed: true
+
 	
 	'removeAllPosts':()->
 		Posts.remove {}
